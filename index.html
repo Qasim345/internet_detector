@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Detector</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI';
+        }
+        
+        .snak-bar {
+            position: fixed;
+            left: 50%;
+            /* we will change it in other class */
+            bottom: -100%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 70px;
+            background: #348;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgb(0, 0, 0, .3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 400;
+            transition: all .4s;
+        }
+        
+        .snak-bar.show {
+            bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- happy emoji <h2>&#x1f60a</h2> -->
+    <!-- sad emoji <h2>&#x1f611</h2> -->
+
+    <!-- creating a snakbar -->
+    <div class="snak-bar">
+    </div>
+
+    <script>
+        const snakBar = document.querySelector(".snak-bar");
+
+        function checkStatus() {
+            navigator.onLine ? showSnakBar("You are online <h2>&#x1f60a</h2>") : showSnakBar("You are offline <h2>&#x1f611</h2>");
+        }
+
+        // call status function
+        checkStatus();
+
+        // whene user switch on / off the internet
+        window.ononline = () => checkStatus();
+        window.onoffline = () => checkStatus();
+
+        function showSnakBar(message) {
+            snakBar.classList.add("show");
+            snakBar.innerHTML = message;
+
+            // hide snakbar after 2 second
+            setTimeout(() => {
+                snakBar.classList.remove("show");
+            }, 2000);
+        }
+    </script>
+
+
+</body>
+
+</html>
